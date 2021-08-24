@@ -18,6 +18,7 @@ class CometFallEvent:
             self.all_comets.add(Comet(self))
     def attempt_fall(self):
         if self.is_full_loaded() and len(self.game.all_monsters) == 0:
+            self.game.step_finished +=1
             self.meteor_fall()
             self.fall_mode = True
     def update_bar(self, surface):

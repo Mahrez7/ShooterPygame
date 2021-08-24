@@ -5,7 +5,7 @@ from monster import Alien
 class Comet(pygame.sprite.Sprite):
     def __init__(self, comet_event):
         super().__init__()
-        self.velocity = random.randint(1,3)
+        self.velocity = random.randint(3,10)
         self.attack = 20
         self.image = pygame.image.load('assets/comet.png')
         self.rect = self.image.get_rect()
@@ -18,6 +18,7 @@ class Comet(pygame.sprite.Sprite):
             self.comet_event.reset_percent()
             self.comet_event.game.mummies_number += 1
             self.comet_event.game.aliens_number += 0.5
+            self.comet_event.game.step_finished+=1
             for i in range(0,self.comet_event.game.mummies_number):
                 self.comet_event.game.spawn_monster(Mummy)
             for i in range(0,self.comet_event.game.mummies_number):

@@ -21,7 +21,29 @@ class Projectile(pygame.sprite.Sprite):
         self.rect.x += self.velocity
         self.rotate()
         for monster in self.player.game.check_collision(self,self.player.game.all_monsters):
-            self.remove()
+            if monster.health > self.player.attack:
+                self.remove()
             monster.damage(self.player.attack)
+        if self.rect.x > 1080:
+            self.remove()
+
+class MegaProjectile(Projectile):
+    def __init__(self, player):
+        super().__init__(player)
+        self.image = pygame.transform.scale(pygame.image.load('assets/projectile.png'), (100, 100))
+        self.velocity = 8
+        self.player = player
+        self.rect = self.image.get_rect()
+        self.rect.x = self.player.rect.x+120
+        self.rect.y = self.player.rect.y+80
+        self.origin_image = self.image
+        self.angle=0
+    def move(self):
+        self.rect.x += self.velocity
+        self.rotate()
+        for monster in self.player.game.check_collision(self,self.player.game.all_monsters):
+            if monster.health > self.player.attack+100:
+                self.remove()
+            monster.damage(self.player.attack+100)
         if self.rect.x > 1080:
             self.remove()

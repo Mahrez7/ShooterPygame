@@ -1,6 +1,6 @@
 import pygame
 import animation
-from projectile import Projectile
+from projectile import MegaProjectile, Projectile
 class Player(animation.AnimateSprite):
     def __init__(self, game):
         super().__init__('player')
@@ -33,3 +33,7 @@ class Player(animation.AnimateSprite):
             self.rect.x += self.velocity
     def move_left(self):
         self.rect.x -= self.velocity
+    def launch_super_projectile(self):
+        self.all_projectiles.add(MegaProjectile(self))
+        self.game.sound_manager.play('meteore')
+        self.start_animation()
